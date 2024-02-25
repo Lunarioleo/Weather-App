@@ -3,6 +3,7 @@ package com.example.petprojweather
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petprojweather.databinding.ActivityMainBinding
 import com.google.gson.annotations.SerializedName
+import com.squareup.picasso.Picasso
+import java.net.URL
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
@@ -20,107 +23,48 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         val myViewModel: MyViewModel = ViewModelProvider(this)[MyViewModel::class.java]
         myViewModel.getData()
-
         myViewModel.uiState.observe(this) {
             when (it) {
                 is MyViewModel.UiState.Result -> {
-                    binding.temperature.text = it.weatherResponse.current.temperature2M.toInt().toString() + it.weatherResponse.currentUnits.temperature2M
-                    binding.currentData.text = it.weatherResponse.current.time.subSequence(0..9)
-                    var adapter = RecyclerViewAdapter(
-                        it.weatherResponse.hourly.time,
-                        it.weatherResponse.hourly.temperature2M,
-                        it.weatherResponse.hourly.isDay
-                    )
-                    binding.rcView.adapter = adapter
-                    binding.rcView.layoutManager =
-                        LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                    val temp = it.weatherResponse.current.temp.toFloat().roundToInt()
+                    binding.temperature.text = "${temp}°"
+                    binding.currentCountry.text = it.weatherResponse.location.country
+                    binding.currentCity.text = it.weatherResponse.location.name
+                    Picasso.get()
+                        .load("https:" + it.weatherResponse.current.currentCondition.icon)
+                        .into(binding.mainCardImage)
+                    binding.currentWeatherDesc.text = it.weatherResponse.current.currentCondition.text
+                    binding.currentData.text = it.weatherResponse.location.localtime.subSequence(0, 10)
+                    binding.feelingTemperature.text = it.weatherResponse.current.feelsLikeTemp + "°"
+                    binding.windSpeed.text = it.weatherResponse.current.windSpeed + "km/h"
+                    binding.humidity.text = it.weatherResponse.current.humidity + "%"
+
                 }
             }
         }
     }
 
-    data class Weather(
-        val latitude: Double,
-        val longitude: Double,
-
-        @SerializedName("generationtime_ms")
-        val generationtimeMS: Double,
-
-        @SerializedName("utc_offset_seconds")
-        val utcOffsetSeconds: Long,
-
-        val timezone: String,
-
-        @SerializedName("timezone_abbreviation")
-        val timezoneAbbreviation: String,
-
-        val elevation: Long,
-
-        @SerializedName("current_units")
-        val currentUnits: CurrentUnits,
-
-        val current: Current,
-
-        @SerializedName("hourly_units")
-        val hourlyUnits: HourlyUnits,
-
-        val hourly: Hourly,
-
-        @SerializedName("daily_units")
-        val dailyUnits: DailyUnits,
-
-        val daily: Daily
-    )
-
-    data class Current(
-        val time: String,
-        val interval: String,
-
-        @SerializedName("temperature_2m")
-        val temperature2M: Double,
-
-        val precipitation: String
-    )
-
-    data class CurrentUnits(
-        val time: String,
-        val interval: String,
-
-        @SerializedName("temperature_2m")
-        val temperature2M: String,
-
-        val precipitation: String
-    )
-
-    data class Daily(
-        val time: List<String>,
-        val sunrise: List<String>,
-        val sunset: List<String>
-    )
-
-    data class DailyUnits(
-        val time: String,
-        val sunrise: String,
-        val sunset: String
-    )
-
-    data class Hourly(
-        val time: List<String>,
-
-        @SerializedName("temperature_2m")
-        val temperature2M: List<Double>,
-
-        @SerializedName("is_day")
-        val isDay: List<Long>
-    )
-
-    data class HourlyUnits(
-        val time: String,
-
-        @SerializedName("temperature_2m")
-        val temperature2M: String,
-
-        @SerializedName("is_day")
-        val isDay: String
-    )
 }
+
+data class WeatherResponse(val location: MyLocation, val current: Current, val forecast: Forecast)
+
+data class MyLocation(val name: String, val region: String, val country: String, val localtime: String)
+
+data class Current(@SerializedName ("last_updated") val lastUpdatedTime: String,
+                   @SerializedName ("temp_c") val temp: String,
+                   @SerializedName ("is_day") val dayOrNot: String,
+                   @SerializedName ("condition") val currentCondition: CurrentCondition,
+                   @SerializedName ("wind_kph") val windSpeed: String,
+                   @SerializedName ("feelslike_c") val feelsLikeTemp: String,
+                   val humidity : String
+    )
+
+data class CurrentCondition (val text: String, val icon: String)
+
+data class Forecast(@SerializedName ("forecastday") val forecastDay: ArrayList<Daily>)
+
+data class Daily(val date: String, val hour : ArrayList<Hourly>)
+
+data class Hourly (val time: String, @SerializedName("temp_c") val tempHourly: String, val condition: CurrentCondition )
+
+

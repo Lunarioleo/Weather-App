@@ -14,16 +14,15 @@ class MyViewModel: ViewModel() {
 
     fun getData(){
         viewModelScope.launch {
-            val weatherData = async { repo.getWeatger() }.await()
+            val weatherData = async { repo.getWeather() }.await()
             if (weatherData.isSuccessful && weatherData.body() != null){
                 _state.postValue(UiState.Result(weatherData.body()!!))
             }
-            //_state.postValue(UiState.RcResult(weatherData.body()?.hourly?.time, weatherData.body()?.hourly?.temperature2M, weatherData.body()?.hourly?.isDay))
 
         }
     }
     sealed class UiState {
-        class Result (val weatherResponse: MainActivity.Weather): UiState()
+        class Result (val weatherResponse: WeatherResponse): UiState()
        // class RcResult (val rcResultTime: List<String>?, val rcResultTemperature: List<Double>?, val rcResultDay: List<Long>?): UiState()
     }
 }

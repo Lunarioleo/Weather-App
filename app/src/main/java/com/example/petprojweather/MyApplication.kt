@@ -17,7 +17,7 @@ class MyApplication: Application() {
 
         private fun getApiClient(): Retrofit {
             return Retrofit.Builder()
-                .baseUrl("https://api.open-meteo.com/v1/")
+                .baseUrl("https://api.weatherapi.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }

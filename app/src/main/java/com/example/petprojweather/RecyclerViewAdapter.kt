@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerViewAdapter(private val time: List<String>, private val temperature: List<Double>, private val isDay: List<Long>): RecyclerView.Adapter<RecyclerViewHolder>(){
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val listItemView = LayoutInflater.from(parent.context).inflate(R.layout.rc_view_item, parent, false)
         return RecyclerViewHolder(listItemView)
@@ -26,7 +25,6 @@ class RecyclerViewAdapter(private val time: List<String>, private val temperatur
             holder.frImage.setImageResource(R.drawable.day)
         }
     }
-
 }
 
 class RecyclerViewHolder(item: View): RecyclerView.ViewHolder(item) {
