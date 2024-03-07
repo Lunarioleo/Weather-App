@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/black"
+    style="?attr/materialCardViewFilledStyle"
     tools:context=".MainActivity">
 
     <TextView
@@ -37,16 +38,17 @@
         app:layout_constraintTop_toBottomOf="@+id/currentCountry" />
 
     <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/currentCity"
-        app:layout_constraintEnd_toStartOf="@id/currentCity"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/baseline_location_searching_24"
+        app:layout_constraintBottom_toTopOf="@+id/cardView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_mylocation" />
+        app:layout_constraintVertical_bias="0"
+        android:layout_margin="8dp"
+        />
 
     <androidx.cardview.widget.CardView
         style="?attr/materialCardViewFilledStyle"
@@ -60,16 +62,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentCity"
         app:layout_constraintVertical_bias="0.065">
-        
+
         <TextView
             android:id="@+id/temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10°"
-            android:textSize="80sp"
-            android:textColor="@color/white"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="200dp"
+            android:layout_marginStart="210dp"
+            android:gravity="center"
+            android:text="29"
+            android:textColor="@color/white"
+            android:textSize="80sp"
 
             />
 
@@ -82,22 +85,23 @@
             android:textColor="@color/white"
             android:textSize="25sp"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="135dp"
             />
 
         <ImageView
             android:id="@+id/mainCardImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="50dp"
+            android:layout_width="140dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
             />
         
         <TextView
             android:id="@+id/currentData"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="150dp"
+            android:layout_margin="25dp"
+            android:layout_marginTop="175dp"
             android:text="Monday, 22 Mar"
             android:gravity="center"
             android:textColor="@color/white"
@@ -108,9 +112,10 @@
     <androidx.cardview.widget.CardView
         style="?attr/materialCardViewFilledStyle"
         android:id="@+id/cardView4"
-        android:layout_width="180dp"
+        android:layout_width="160dp"
         android:layout_height="80dp"
         android:layout_marginTop="12dp"
+        android:layout_margin="8dp"
         android:backgroundTint="#3CF1EBF1"
         app:cardCornerRadius="18dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,10 +135,11 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView2"
-        android:layout_width="180dp"
+        android:layout_width="160dp"
         android:layout_height="80dp"
         android:layout_marginTop="12dp"
         app:cardCornerRadius="18dp"
+        android:layout_margin="8dp"
         android:backgroundTint="#3CF1EBF1"
         app:layout_constraintEnd_toStartOf="@+id/cardView4"
         app:layout_constraintHorizontal_chainStyle="spread"
@@ -153,10 +159,11 @@
 
         <TextView
             android:id="@+id/feelingTemperature"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+
+            android:layout_gravity="center_horizontal"
             android:text="23.5"
             android:gravity="center"
             android:textSize="20sp"
@@ -164,25 +171,22 @@
             />
 
         <ImageView
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/temperature"
             android:layout_gravity="end"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="15dp"
             />
     </com.google.android.material.card.MaterialCardView>
-
-
-
-
 
     <androidx.cardview.widget.CardView
         style="?attr/materialCardViewFilledStyle"
         android:id="@+id/cardView3"
-        android:layout_width="180dp"
+        android:layout_width="160dp"
         android:layout_height="80dp"
         android:layout_marginTop="12dp"
+        android:layout_margin="8dp"
         app:cardBackgroundColor="#3CF1EBF1"
         app:cardCornerRadius="18dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -195,29 +199,29 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="Chance of rain"
+            android:text="Rain"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/humidity"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+           android:layout_gravity="center_horizontal"
             android:text="100%"
             android:gravity="center"
             android:textSize="20sp"
             android:textColor="@color/white"
             />
         <ImageView
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/rain_chance"
             android:layout_gravity="end"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="30dp"
             />
 
     </androidx.cardview.widget.CardView>
@@ -225,9 +229,10 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         style="?attr/materialCardViewFilledStyle"
-        android:layout_width="180dp"
+        android:layout_width="160dp"
         android:layout_height="80dp"
         android:layout_marginTop="12dp"
+        android:layout_margin="8dp"
         app:cardBackgroundColor="#3CF1EBF1"
         app:cardCornerRadius="18dp"
         app:layout_constraintEnd_toStartOf="@+id/cardView3"
@@ -247,24 +252,23 @@
 
         <TextView
             android:id="@+id/windSpeed"
-            android:layout_width="90dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginStart="20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
             android:text="100km/h"
             android:textSize="20sp"
             android:textColor="@color/white"
             />
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:src="@drawable/windstock"
-            android:layout_gravity="end"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="24dp"
-            />
-    </androidx.cardview.widget.CardView>
 
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/windstock" />
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -277,7 +281,7 @@
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintVertical_bias="0.05"
         app:tabIndicatorColor="#FFFFFF"
         app:tabTextColor="@color/white">
 
@@ -291,18 +295,14 @@
             android:text="Tomorrow" />
     </com.google.android.material.tabs.TabLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcView"
+    <androidx.viewpager2.widget.ViewPager2
+        android:isScrollContainer="false"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/rc_view_item"
-        >
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+    </androidx.viewpager2.widget.ViewPager2>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    >
 
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
             android:layout_height="130dp"
             android:layout_margin="16dp"
-            app:cardBackgroundColor="#3CF1EBF1"
+            app:cardBackgroundColor="#26F1EBF1"
             app:cardCornerRadius="16dp"
             style="?attr/materialCardViewFilledStyle"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:gravity="center"
-                android:text="25"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:layout_marginBottom="5dp"
