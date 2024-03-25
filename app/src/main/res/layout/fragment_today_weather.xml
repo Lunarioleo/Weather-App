@@ -23,5 +23,4 @@
             tools:listitem="@layout/rc_view_item"/>
 
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

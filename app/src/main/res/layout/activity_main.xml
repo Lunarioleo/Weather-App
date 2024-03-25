@@ -10,10 +10,11 @@
 
     <TextView
         android:id="@+id/currentCountry"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/galindo"
         android:text="EGYPT"
+        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -38,6 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/currentCountry" />
 
     <ImageView
+        android:id="@+id/location"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:src="@drawable/baseline_location_searching_24"
@@ -65,26 +67,26 @@
 
         <TextView
             android:id="@+id/temperature"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="210dp"
+            android:layout_marginStart="190dp"
             android:gravity="center"
-            android:text="29"
+            android:text=""
             android:textColor="@color/white"
-            android:textSize="80sp"
+            android:textSize="65sp"
 
             />
 
         <TextView
             android:id="@+id/currentWeatherDesc"
-            android:layout_width="150dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:text="Partly sunny"
+            android:text=""
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="25sp"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="135dp"
             />
 
@@ -93,17 +95,19 @@
             android:layout_width="140dp"
             android:layout_height="120dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             />
-        
+
         <TextView
             android:id="@+id/currentData"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_margin="25dp"
-            android:layout_marginTop="175dp"
+            android:layout_marginTop="155dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="10dp"
             android:text="Monday, 22 Mar"
             android:gravity="center"
+            android:layout_gravity="end|bottom"
             android:textColor="@color/white"
             />
 
@@ -164,7 +168,7 @@
             android:layout_marginTop="40dp"
 
             android:layout_gravity="center_horizontal"
-            android:text="23.5"
+            android:text=""
             android:gravity="center"
             android:textSize="20sp"
             android:textColor="@color/white"
@@ -190,7 +194,6 @@
         app:cardBackgroundColor="#3CF1EBF1"
         app:cardCornerRadius="18dp"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView4">
 
@@ -199,7 +202,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="Rain"
+            android:text="Rain "
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -210,7 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
            android:layout_gravity="center_horizontal"
-            android:text="100%"
+            android:text=""
             android:gravity="center"
             android:textSize="20sp"
             android:textColor="@color/white"
@@ -256,7 +259,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
-            android:text="100km/h"
+            android:text=""
             android:textSize="20sp"
             android:textColor="@color/white"
             />
@@ -296,7 +299,6 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
-        android:isScrollContainer="false"
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -305,4 +307,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout">
     </androidx.viewpager2.widget.ViewPager2>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
