@@ -1,7 +1,7 @@
 package com.example.petprojweather
 
 import android.app.Application
-
+import androidx.room.Room
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -12,7 +12,8 @@ class MyApplication: Application() {
     override fun onCreate() {
         instance = this
         super.onCreate()
-        repo = Repository(getApiClient())
+        val database = Room.databaseBuilder(this, CitiesDatabase::class.java, "cities_database").build()
+        repo = Repository(getApiClient(), database)
     }
 
         private fun getApiClient(): Retrofit {
@@ -23,7 +24,7 @@ class MyApplication: Application() {
         }
 
     companion object {
-        private lateinit var instance: MyApplication
+         private lateinit var instance: MyApplication
         fun getInstance() = instance
     }
 }

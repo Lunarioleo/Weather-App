@@ -7,36 +7,36 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import androidx.recyclerview.widget.RecyclerView
+import com.example.petprojweather.databinding.FragmentSearchCityBinding
 
 
-class FragmentTomorrow : Fragment() {
+class SearchCityFragment : Fragment() {
+    private lateinit var binding: FragmentSearchCityBinding
+
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_tomorrow, container, false)
+    ): View {
+
+        // Inflate the layout for this fragment
+        binding = FragmentSearchCityBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val rcView = view.findViewById(R.id.rcView) as RecyclerView
-
         val viewModel = ViewModelProvider(activity as ViewModelStoreOwner)[MyViewModel::class.java]
-
-        viewModel.uiState.observe(viewLifecycleOwner) {
-            when (it) {
-                is MyViewModel.UiState.Result -> {
-                    val adapter = RecyclerViewAdapter(it.weatherResponse.forecast.forecastDay[1].hour, "") // 32
-                    rcView.adapter = adapter
-                }
-                else->{}
-            }
-
+        binding.searchBtn.setOnClickListener {
+            val cityName = binding.search.text.toString()
+            viewModel.addCity(cityName)
+           // viewModel.getData(cityName)
         }
+
+
     }
+
 
 
 

@@ -2,96 +2,68 @@ package com.example.petprojweather
 
 
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.petprojweather.databinding.ActivityMainBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.material.tabs.TabLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.gson.annotations.SerializedName
-import com.squareup.picasso.Picasso
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
-import kotlin.math.roundToInt
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var binding: ActivityMainBinding
-    private lateinit var fragmentAdapter: VPAdapter
-
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private lateinit var myViewModel: MyViewModel
 
     companion object {
         lateinit var instance: MainActivity
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        instance = this
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        myViewModel = ViewModelProvider(this)[MyViewModel::class.java]
+        instance = this
+        setSupportActionBar(binding.toolbar)
+        val viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
+        viewModel.fetchLocation()
+        val toggle = ActionBarDrawerToggle(this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.open_nav,
+            R.string.close_nav)
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        binding.navigationDrawer.setNavigationItemSelectedListener(this)
+    }
 
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
-
-        fragmentAdapter = VPAdapter(supportFragmentManager, lifecycle)
-        binding.viewPager.adapter = fragmentAdapter
-        binding.viewPager.isUserInputEnabled = false
-
-
-
-        binding.location.setOnClickListener {
-            myViewModel.checkPermissions()
-            myViewModel.fetchLocation()
-        }
-
-
-
-
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                if (tab != null) {
-                    binding.viewPager.currentItem = tab.position
-                }
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.forecast ->{
+                openFragment(WeatherForecastFragment())
             }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            R.id.search->{
+                openFragment(SearchCityFragment())
             }
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-        })
-
-        binding.viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                binding.tabLayout.selectTab(binding.tabLayout.getTabAt(position))
-            }
-        })
-
-        myViewModel.uiState.observe(this) {
-            when (it) {
-                is MyViewModel.UiState.Result -> {
-                    val temp = it.weatherResponse.current.temp.toFloat().roundToInt()
-                    binding.temperature.text = "${temp}°"
-                    binding.currentCountry.text = it.weatherResponse.location.country
-                    binding.currentCity.text = it.weatherResponse.location.name
-                    Picasso.get()
-                        .load("https:" + it.weatherResponse.current.currentCondition.icon)
-                        .into(binding.mainCardImage)
-                    binding.currentWeatherDesc.text =
-                        it.weatherResponse.current.currentCondition.text
-                    val sdf = SimpleDateFormat("EEE, dd MMM", Locale.ENGLISH)
-                    binding.currentData.text = sdf.format(Calendar.getInstance().time)
-                    binding.feelingTemperature.text = it.weatherResponse.current.feelsLikeTemp.toDouble().toInt().toString() + "°"
-                    binding.windSpeed.text = it.weatherResponse.current.windSpeed + "km/h"
-                    binding.humidity.text = it.weatherResponse.current.humidity + "%"
-                }
+            R.id.savedCities->{
+                 openFragment(CitiesList())
             }
         }
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressedDispatcher.onBackPressed()
+        }
+    }
+
+    private fun openFragment(fr: Fragment){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fr)
+            .commit()
     }
 }
 
