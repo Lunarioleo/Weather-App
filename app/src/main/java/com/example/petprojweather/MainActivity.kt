@@ -10,22 +10,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.petprojweather.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
-import com.google.gson.annotations.SerializedName
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var binding: ActivityMainBinding
-
+    private lateinit var viewModel: MyViewModel
     companion object {
         lateinit var instance: MainActivity
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         instance = this
+        setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        val viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
-        viewModel.fetchLocation()
         val toggle = ActionBarDrawerToggle(this,
             binding.drawerLayout,
             binding.toolbar,
@@ -34,6 +32,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         binding.navigationDrawer.setNavigationItemSelectedListener(this)
+
+        viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
+        viewModel.fetchLocation()
     }
 
 
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId){
             R.id.forecast ->{
                 openFragment(WeatherForecastFragment())
+                viewModel.fetchLocation()
             }
             R.id.search->{
                 openFragment(SearchCityFragment())
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
     override fun onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
             binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -69,25 +72,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
 
-data class WeatherResponse(val location: MyLocation, val current: Current, val forecast: Forecast)
-
-data class MyLocation(val name: String, val region: String, val country: String, val localtime: String)
-
-data class Current(@SerializedName ("last_updated") val lastUpdatedTime: String,
-                   @SerializedName ("temp_c") val temp: String,
-                   @SerializedName ("is_day") val dayOrNot: String,
-                   @SerializedName ("condition") val currentCondition: CurrentCondition,
-                   @SerializedName ("wind_kph") val windSpeed: String,
-                   @SerializedName ("feelslike_c") val feelsLikeTemp: String,
-                   val humidity : String
-    )
-
-data class CurrentCondition (val text: String, val icon: String)
-
-data class Forecast(@SerializedName ("forecastday") val forecastDay: ArrayList<Daily>)
-
-data class Daily(val date: String, val hour : ArrayList<Hourly>)
-
-data class Hourly (val time: String, @SerializedName("temp_c") val tempHourly: String, val condition: CurrentCondition )
 
 

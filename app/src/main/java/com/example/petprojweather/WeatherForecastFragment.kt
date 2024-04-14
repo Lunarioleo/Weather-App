@@ -29,9 +29,7 @@ class WeatherForecastFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
-
 
 
     override fun onCreateView(
@@ -40,19 +38,17 @@ class WeatherForecastFragment : Fragment() {
     ): View {
 
         // Inflate the layout for this fragment
-        binding =  FragmentWeatherForecastBinding.inflate(layoutInflater, container, false)
+        binding = FragmentWeatherForecastBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
-
-
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         myViewModel = ViewModelProvider(activity as ViewModelStoreOwner)[MyViewModel::class.java]
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
 
 
         fragmentAdapter = VPAdapter(parentFragmentManager, lifecycle)
@@ -61,8 +57,10 @@ class WeatherForecastFragment : Fragment() {
 
 
 
+
         binding.location.setOnClickListener {
-            myViewModel.checkPermissions()
+            myViewModel.startAnimation(binding.location)
+           // myViewModel.checkPermissions()
             myViewModel.fetchLocation()
         }
 
@@ -75,6 +73,7 @@ class WeatherForecastFragment : Fragment() {
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
+
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
@@ -100,17 +99,22 @@ class WeatherForecastFragment : Fragment() {
                         it.weatherResponse.current.currentCondition.text
                     val sdf = SimpleDateFormat("EEE, dd MMM", Locale.ENGLISH)
                     binding.currentData.text = sdf.format(Calendar.getInstance().time)
-                    binding.feelingTemperature.text = it.weatherResponse.current.feelsLikeTemp.toDouble().toInt().toString() + "°"
+                    binding.feelingTemperature.text =
+                        it.weatherResponse.current.feelsLikeTemp.toDouble().toInt().toString() + "°"
                     binding.windSpeed.text = it.weatherResponse.current.windSpeed + "km/h"
                     binding.humidity.text = it.weatherResponse.current.humidity + "%"
+                    binding.uvIndex.text = it.weatherResponse.current.uv
                 }
-                else->{}
+
+                else -> {}
             }
 
         }
 
 
     }
+
+
 
 
 }

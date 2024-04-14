@@ -48,6 +48,12 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
 
+    //autocomplete
+    implementation("com.google.android.libraries.places:places:3.4.0")
+
+    //lottie anim
+    implementation ("com.airbnb.android:lottie:6.1.0")
+
     //view pager
     implementation ("androidx.viewpager2:viewpager2:1.1.0-beta02")
 

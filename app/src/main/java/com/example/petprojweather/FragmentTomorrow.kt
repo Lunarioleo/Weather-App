@@ -29,7 +29,7 @@ class FragmentTomorrow : Fragment() {
         viewModel.uiState.observe(viewLifecycleOwner) {
             when (it) {
                 is MyViewModel.UiState.Result -> {
-                    val adapter = RecyclerViewAdapter(it.weatherResponse.forecast.forecastDay[1].hour, "") // 32
+                    val adapter = RecyclerViewAdapter(it.weatherResponse.forecast.forecastDay[1].hour)
                     rcView.adapter = adapter
                 }
                 else->{}

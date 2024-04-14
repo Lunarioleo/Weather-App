@@ -9,9 +9,11 @@
     style="?attr/materialCardViewFilledStyle"
     tools:context=".MainActivity">
 
+
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="50dp"
@@ -28,6 +30,7 @@
             android:id="@+id/fragmentContainer"
             android:name="com.example.petprojweather.WeatherForecastFragment"
             />
+
 </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

@@ -14,7 +14,6 @@ class Repository(private val client: Retrofit, private val database: CitiesDatab
     fun getAll() =  database.cityDao().getAll()
 
 
-
     fun add(city: City) {
         executor.execute {
             database.cityDao().add(city)

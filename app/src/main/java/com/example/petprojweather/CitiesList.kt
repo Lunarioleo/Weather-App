@@ -27,7 +27,6 @@ class CitiesList : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val viewModel = ViewModelProvider(activity as ViewModelStoreOwner)[MyViewModel::class.java]
 
-
         var adapter  = CityListAdapter(emptyMap()){
             viewModel.getData(it)
             parentFragmentManager.beginTransaction()
@@ -42,7 +41,6 @@ class CitiesList : Fragment() {
                 is MyViewModel.ListState.EmptyList -> Unit
 
                 is MyViewModel.ListState.UpdatedList -> {
-
                     viewModel.getListForecast(it.list)
                 }
             }
@@ -52,11 +50,9 @@ class CitiesList : Fragment() {
         viewModel.uiState.observe(viewLifecycleOwner) { a ->
             when (a) {
                 is MyViewModel.UiState.Result -> {
-
                 }
                 is MyViewModel.UiState.ResultCards -> {
                     adapter.updateWeatherList(a.weatherResponses)
-
                 }
             }
         }

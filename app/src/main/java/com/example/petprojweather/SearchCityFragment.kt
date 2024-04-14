@@ -14,7 +14,6 @@ class SearchCityFragment : Fragment() {
     private lateinit var binding: FragmentSearchCityBinding
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,22 +21,24 @@ class SearchCityFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = FragmentSearchCityBinding.inflate(layoutInflater, container, false)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewModel = ViewModelProvider(activity as ViewModelStoreOwner)[MyViewModel::class.java]
+
+
+
+
         binding.searchBtn.setOnClickListener {
             val cityName = binding.search.text.toString()
             viewModel.addCity(cityName)
-           // viewModel.getData(cityName)
         }
 
 
     }
-
-
 
 
 }

@@ -15,14 +15,14 @@
 
         <item
             android:id="@+id/search"
-            android:icon="@color/white"
+            android:icon="@drawable/baseline_location_searching_24"
             android:title="Search city"
             android:checkable = "false"
             />
 
         <item
             android:id="@+id/savedCities"
-            android:icon="@drawable/baseline_location_searching_24"
+            android:icon="@drawable/baseline_list_24"
             android:title="Saved cities"
             android:checkable = "false"
             />

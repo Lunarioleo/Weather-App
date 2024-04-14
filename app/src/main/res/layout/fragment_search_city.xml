@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchCityFragment"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    tools:context=".SearchCityFragment">
 
     <EditText
         android:id="@+id/search"
@@ -16,7 +17,10 @@
         android:textColor="@color/white"
         />
 
-    <Button
+
+
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/searchBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,7 +28,16 @@
         android:backgroundTint="@color/white"
         android:textColor="@color/black"
         android:text="Search"
+        app:rippleColor="@color/black"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LightSky, v 2.3"
+        android:textColor="@color/white"
+        android:textSize="10dp"
+        android:layout_gravity="bottom|center_horizontal"/>
 
 
 </FrameLayout>

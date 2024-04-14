@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    style="?attr/materialCardViewFilledStyle"
+   
     tools:context=".WeatherForecastFragment">
 
     <TextView
@@ -22,7 +22,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.037" />
+        app:layout_constraintVertical_bias="0.04" />
+
 
     <TextView
         android:id="@+id/currentCity"
@@ -36,21 +37,24 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentCountry" />
-
-    <ImageView
+        app:layout_constraintTop_toBottomOf="@+id/currentCountry">
+    </TextView>
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/location"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:src="@drawable/baseline_location_searching_24"
-        app:layout_constraintBottom_toTopOf="@+id/cardView5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0"
-        android:layout_margin="8dp"
-        />
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toEndOf="@+id/currentCity"
+        app:layout_constraintTop_toBottomOf="@id/currentCountry"
+        app:layout_constraintVertical_bias="0.9"
+        app:lottie_colorFilter="@color/white"
+        app:lottie_fileName="load.json" />
+
+
+
+
 
     <androidx.cardview.widget.CardView
         style="?attr/materialCardViewFilledStyle"
@@ -131,10 +135,31 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="SO2"
+            android:text="UV index"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/uvIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center_horizontal"
+            android:text=""
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ultraviolet"
+            android:layout_gravity="end"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            />
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.card.MaterialCardView
@@ -202,7 +227,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="Rain "
+            android:text="Humidity"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -224,7 +249,7 @@
             android:src="@drawable/rain_chance"
             android:layout_gravity="end"
             android:layout_marginTop="6dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="15dp"
             />
 
     </androidx.cardview.widget.CardView>
@@ -269,7 +294,7 @@
             android:layout_height="30dp"
             android:layout_gravity="end"
             android:layout_marginTop="6dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="25dp"
             android:src="@drawable/windstock" />
     </androidx.cardview.widget.CardView>
 
@@ -307,5 +332,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout">
     </androidx.viewpager2.widget.ViewPager2>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
