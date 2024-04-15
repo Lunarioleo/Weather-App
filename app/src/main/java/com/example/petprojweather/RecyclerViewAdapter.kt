@@ -10,12 +10,17 @@ import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
-class RecyclerViewAdapter(private val data: ArrayList<Hourly>): RecyclerView.Adapter<RecyclerViewHolder>(){
+class RecyclerViewAdapter(private val data: ArrayList<Hourly>, private val isFragmentTomorrow: Boolean = false): RecyclerView.Adapter<RecyclerViewHolder>(){
     private val sdf = SimpleDateFormat("H")
     private var startIndex: Int = 0
 
     init {
-        startIndex = sdf.format(Calendar.getInstance().time).toInt()
+        startIndex = if (isFragmentTomorrow){
+            0
+        } else {
+            sdf.format(Calendar.getInstance().time).toInt()
+        }
+
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val listItemView = LayoutInflater.from(parent.context).inflate(R.layout.rc_view_item, parent, false)
